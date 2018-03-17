@@ -1,0 +1,44 @@
+.device-item {
+  width: 33.333%;
+
+  
+  padding: 0 10px 10px 10px;
+  box-sizing: border-box;
+  line-height: 25px;
+
+  font-size: 1rem;
+
+  &__inner {
+    border: 2px solid #8e8e8e;
+    padding: 10px;
+  }
+
+  &__status {
+    color: springgreen;
+  }
+
+  &__spinner {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 10px;
+    width: 12px;
+  }
+
+  &__error-msg {
+    color: tomato;
+    margin: 10px 0 0 0;
+  }
+
+  &__btn {
+    cursor: pointer;
+    border: 1px solid #8e8e8e;
+  }
+}
+
+.device-item__status--off{
+  color: tomato;
+}
+
+.device-item__btn--disable {
+  pointer-events: none;
+}

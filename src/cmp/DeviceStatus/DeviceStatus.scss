@@ -1,0 +1,23 @@
+.device-status {
+  background-color: white;
+
+  padding: 10px;
+  
+  border: 2px solid #8e8e8e;
+
+  display: inline-block;
+
+  text-transform: uppercase;
+  font-size: 1rem;
+
+  &__active {
+    color: springgreen;
+  }
+  &__inactive {
+    color: tomato;
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+}
