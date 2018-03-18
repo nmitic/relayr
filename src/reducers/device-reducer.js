@@ -7,7 +7,8 @@ const deviceReducer = (state = [], {type, payload}) => {
       return payload.devices;
 
     case UPDATE_DEVICE:
-
+       // Map over devices and toogle their active status
+    
        return payload.devices.map(device => {
 
         if (device.name === payload.name) {
@@ -21,7 +22,7 @@ const deviceReducer = (state = [], {type, payload}) => {
       });
 
     case UPDATE_FETCH:
-    
+       // Map over devices and toogle their isFetch flag
       return payload.devices.map(device => {
 
         if (device.name === payload.name) {
@@ -34,7 +35,7 @@ const deviceReducer = (state = [], {type, payload}) => {
         return device;
       });
     case HIDE_ERROR:
-    
+      // Map over devices and set errorShown flag to false so the the error msg can be hidden 
       return payload.devices.map(device => {
 
         if (device.name === payload.name) {
@@ -48,7 +49,7 @@ const deviceReducer = (state = [], {type, payload}) => {
       });
 
     case SHOW_ERROR:
-    
+      // Map over devices and set errorShown flag to true so the the error msg can be shown
       return payload.devices.map(device => {
 
         if (device.name === payload.name) {

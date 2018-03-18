@@ -70,18 +70,22 @@ const mapStateToProps = createSelector(
   (devices, filter) => ({
     initialDevices: devices,
     devices: devices
+      // map over device data and add two more props used for conditional renderng later
       .map(device => {
         return Object.assign({
           isFetching: false,
           errorShown: false
         }, device);
       })
+      // filter devices per user search filter input
       .filter(device => {
         return device.name.includes(filter.toLowerCase());
       }),
+    // Count the number of active devices
     activeDevices: devices.filter(device => {
       return device.active;
     }).length,
+    // Count the number of inactive devices
     inactiveDevices: devices.filter(device => {
       return !device.active;
     }).length,

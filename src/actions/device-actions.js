@@ -25,50 +25,24 @@ export const fetchDevices = () => {
   }
 }
 
-export const showDeviceError = (device, devices) => {
-  return {
-    type: SHOW_ERROR,
-    payload: {
-      name: device,
-      devices
-    }
-  }
-}
-
-export const hideDeviceError = (device, devices) => {
-  return {
-    type: HIDE_ERROR,
-    payload: {
-      name: device,
-      devices
-    }
-  }
-}
-
-export const updateDeviceFetching = (device, devices) => {
-  return {
-    type: UPDATE_FETCH,
-    payload: {
-      name: device,
-      devices
-    }
-  }
-}
-
-export const updateDeviceStatus = (device, devices) => {
-  return {
-    type: UPDATE_DEVICE,
-    payload: {
-      name: device,
-      devices
+export const updateDevice = (type) => {
+  return (device, devices) => {
+    return {
+      type: type,
+      payload: {
+        name: device,
+        devices
+      }
     }
   }
 }
 
 export const toggleDevice = (device, devices, status) => {
   return dispatch => {
-    dispatch(updateDeviceFetching(device, devices));
-    dispatch(hideDeviceError(device, devices));
+    // toogle Fetching for currently selected device - show loading spinner
+    // Hide error if it was shown from previously faild PATCH request
+    dispatch(updateDevice(UPDATE_FETCH)(device, devices))
+    dispatch(updateDevice(HIDE_ERROR)(device, devices))
        
     
     fetch(
@@ -82,15 +56,19 @@ export const toggleDevice = (device, devices, status) => {
       if(response.ok) {
         return response;
       }
-      dispatch(showDeviceError(device, devices));
-      dispatch(updateDeviceFetching(device, devices));  
+      // If PATCH fails show error msg
+      // toogle Fetching for currently selected device - hide loading spinner
+      dispatch(updateDevice(SHOW_ERROR)(device, devices)) 
+      dispatch(updateDevice(UPDATE_FETCH)(device, devices))        
       throw new Error('Network response was not ok.');
     })
     .then( response => {
-      dispatch(updateDeviceFetching(device, devices));
-      dispatch(updateDeviceStatus(device, devices));
+      // toogle Fetching for currently selected device - hide loading spinner
+      // toogle device status for currently selected device - set active to true/false
+      dispatch(updateDevice(UPDATE_FETCH)(device, devices))
+      dispatch(updateDevice(UPDATE_DEVICE)(device, devices))      
     })
-    .catch(error => {    
+    .catch(error => {
       console.log('There has been a problem with your fetch operation: ', error.message);
     })
   }
