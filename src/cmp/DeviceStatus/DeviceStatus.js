@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './DeviceStatus.scss';
 
 const DeviceStatus = ({
@@ -12,6 +13,11 @@ const DeviceStatus = ({
       <div className="device-status__inactive">inactive:{inactiveDevices}</div>
     </div>
   )
+}
+
+DeviceStatus.propTypes = {
+  activeDevices: PropTypes.number.isRequired,
+  inactiveDevices: PropTypes.number.isRequired
 }
 
 export default DeviceStatus;

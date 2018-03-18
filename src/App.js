@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { connect } from 'react-redux';
 import { fetchDevices, toggleDevice } from './actions/device-actions';
@@ -11,6 +12,14 @@ import DeviceStatus from './cmp/DeviceStatus/DeviceStatus';
 import DeviceList from './cmp/DeviceList/DeviceList';
 
 class App extends Component {
+
+  static propTypes = {
+    initialDevices: PropTypes.array.isRequired,
+    devices: PropTypes.array.isRequired,
+    activeDevices: PropTypes.number.isRequired,
+    inactiveDevices: PropTypes.number.isRequired
+  }
+  
   render() {
     const devices = this.props.devices;
 
@@ -63,7 +72,8 @@ const mapStateToProps = createSelector(
     devices: devices
       .map(device => {
         return Object.assign({
-          isFetching: false
+          isFetching: false,
+          errorShown: false
         }, device);
       })
       .filter(device => {

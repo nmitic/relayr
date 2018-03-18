@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './DeviceList.scss';
 
 import DeviceItem from '../DeviceItem/DeviceItem';
@@ -13,14 +14,8 @@ const DeviceList = ({
       devices.map(device => {
         return (
           <DeviceItem
-            isFetching={device.isFetching}
-            errorShown={device.errorShown}
+            itemData={device}
             key={device.name}
-            deviceName={device.name}
-            deviceValue={device.value}
-            deviceUnit={device.unit}
-            deviceActive={device.active}
-            deviceTimestamp={device.timestamp}
             onUpdateDevice={onUpdateDevice}
           />
         )
@@ -28,6 +23,11 @@ const DeviceList = ({
     }
     </div>
   )
+}
+
+DeviceList.propTypes = {
+  devices: PropTypes.array.isRequired,
+  onUpdateDevice: PropTypes.func.isRequired
 }
 
 export default DeviceList;
