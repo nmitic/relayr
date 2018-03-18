@@ -68,6 +68,7 @@ const mapStateToProps = createSelector(
   state => state.filter,
 
   (devices, filter) => ({
+    // set initial devices prop so that "device status" cmp always refer to the non filtered array of devices
     initialDevices: devices,
     devices: devices
       // map over device data and add two more props used for conditional renderng later

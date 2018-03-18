@@ -18,13 +18,23 @@ export const populateDeviceList = (devices = []) => {
 export const fetchDevices = () => {
   return dispatch => {
     fetch(getDeviceListAPI())
+    .then( response => {
+      if (response.ok) {        
+        return response;
+        
+      }
+      else throw new Error('Network response was not ok.');
+    })
     .then( response => response.json() )
     .then( data => {
       dispatch(populateDeviceList(data.data));
     })
+    .catch(error => {
+      console.log('There has been a problem with your fetch operation: ', error.message);      
+    })
   }
 }
-
+// Returning a fun with a type of action that needs to be dispatched
 export const updateDevice = (type) => {
   return (device, devices) => {
     return {
@@ -40,8 +50,8 @@ export const updateDevice = (type) => {
 export const toggleDevice = (device, devices, status) => {
   return dispatch => {
     // toogle Fetching for currently selected device - show loading spinner
-    // Hide error if it was shown from previously faild PATCH request
     dispatch(updateDevice(UPDATE_FETCH)(device, devices))
+    // Hide error if it was shown from previously faild PATCH request
     dispatch(updateDevice(HIDE_ERROR)(device, devices))
        
     
@@ -57,15 +67,15 @@ export const toggleDevice = (device, devices, status) => {
         return response;
       }
       // If PATCH fails show error msg
-      // toogle Fetching for currently selected device - hide loading spinner
       dispatch(updateDevice(SHOW_ERROR)(device, devices)) 
+      // toogle Fetching for currently selected device - hide loading spinner
       dispatch(updateDevice(UPDATE_FETCH)(device, devices))        
       throw new Error('Network response was not ok.');
     })
     .then( response => {
       // toogle Fetching for currently selected device - hide loading spinner
-      // toogle device status for currently selected device - set active to true/false
       dispatch(updateDevice(UPDATE_FETCH)(device, devices))
+      // toogle device status for currently selected device - set active to true/false
       dispatch(updateDevice(UPDATE_DEVICE)(device, devices))      
     })
     .catch(error => {
