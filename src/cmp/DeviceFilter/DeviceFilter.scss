@@ -4,7 +4,10 @@ input {
   border-bottom: 2px solid gray;
   width: 100%;
 
-  font-size: 2rem;
+  font-size: 1rem;
+  @media (min-width: 410px) {
+    font-size: 2rem;
+  }
   margin-bottom: 20px;
 
   &:focus {

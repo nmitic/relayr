@@ -5,7 +5,7 @@ const DeviceFilter = ({
   onFilter
 }) => {
   return (
-    <input placeholder="Filter Devices" type="text" onChange={onFilter}/>
+    <input placeholder="Type Here To Filter Devices" type="text" onChange={onFilter}/>
   )
 }
 

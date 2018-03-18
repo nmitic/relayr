@@ -1,7 +1,14 @@
 .device-item {
-  width: 33.333%;
+  width: 100%;
 
-  
+  @media (min-width: 410px) {
+    width: 50%;
+  }
+
+  @media (min-width: 650px) {
+    width: 33.333%;
+  }
+
   padding: 0 10px 10px 10px;
   box-sizing: border-box;
   line-height: 25px;
